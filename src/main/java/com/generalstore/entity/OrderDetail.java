@@ -91,7 +91,7 @@ public class OrderDetail implements java.io.Serializable {
 		this.quantity = quantity;
 	}
 
-	@Column(name = "subtotal", nullable = false, precision = 12, scale = 0)
+	@Column(name = "sub_total", nullable = false, precision = 12, scale = 0)
 	public float getSubtotal() {
 		return this.subtotal;
 	}

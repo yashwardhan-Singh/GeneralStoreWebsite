@@ -5,16 +5,16 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Create New Book</title>
+<title>Create New User</title>
 <link rel="stylesheet" href="../css/style.css">
-<script type="stylesheet" src="../css/jquery-ui.min.css"></script>
+<link rel="stylesheet" href="../css/jquery-ui.min.css">
 
 <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../js/jquery-ui.min.js"></script>
 
 
-</head> 
+</head>
 <body>
 	<jsp:directive.include file="header.jsp" />
 	<div align="center">
@@ -24,29 +24,34 @@
 		</h1>
 	</div>
 	<div align="center">
-		<c:if test="${user != null}">
-			<form action="update_book" method="post" id="bookForm">
-				<input type="hidden" name="userId" value="${user.userId }">
+		<c:if test="${book != null}">
+			<form action="update_book" method="post" id="bookForm" enctype="multipart/form-data">
+				<input type="hidden" name="bookId" value="${book.bookId }">
 		</c:if>
-		<c:if test="${user == null }">
+		<c:if test="${book == null }">
 			<form action="create_book" method="post" id="bookForm" enctype="multipart/form-data">
 		</c:if>
 
 		<table class="form">
-			<tr>
+		<tr>
 				<td>Category:</td>
 				<td>
-					<select name="category"> 
-					<c:forEach items="${listCategory }" var="category">
-						<option value="${category.id }">
-							${category.name}
+					<select name="category">
+						<c:forEach items="${listCategory}" var="category">
+							<c:if test="${category.categoryId eq book.category.categoryId}">
+								<option value="${category.categoryId}" selected>
+							</c:if>
+							<c:if test="${category.categoryId ne book.category.categoryId}">
+								<option value="${category.categoryId}">
+							</c:if>							
+								${category.name}
 							</option>
-					</c:forEach>
+						</c:forEach>
 					</select>
 				</td>
 			</tr>
-						<tr>
-		<tr>
+			<tr>
+			<tr>
 				<td align="right">Title:</td>
 				<td align="left"><input type="text" name="title" id="title" size="20" value="${book.title}"></td>
 			</tr>
@@ -60,13 +65,16 @@
 			</tr>
 			<tr>
 				<td align="right">Publish Date:</td>
-				<td align="left"><input type="text" name="publishDate" id="publishDate "size="20" 
-				 value="${book.publishDate}"></td>
+				<td align="left"><input type="text" id="publishDate" name="publishDate" size="20" 
+				value="${book.publishDate}"></td>
 			</tr>
 			<tr>
 				<td align="right">Book Image:</td>
-				<td align="left"><input type="file" name="bookImage" id="bookImage "size="20">
-					<img id="thumbnail" alt="Image Preview"/>
+				<td align="left">
+				<input type="file" name="bookImage" id="bookImage" size="20"/>
+					<img id="thumbnail" alt="Image Preview" style="width:20%; margin-top: 10px"
+					src = "data:image/jpg;base64,${book.base64Image }"
+					/>
 				</td>
 			</tr>
 			<tr>
@@ -76,12 +84,13 @@
 			<tr>
 				<td align="right">Description:</td>
 				<td align="left">
-					<textarea rows="5" cols="50" name="description" id="description" >${book.desciption}</textarea>
+					<textarea rows="5" cols="50" name="description" id="description" >${book.description }</textarea>
 				</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
 			</tr>
+			
 			<tr>
 				<td colspan="2" align="center">
 					<button type="submit">Save</button>&nbsp;&nbsp;&nbsp;
@@ -99,46 +108,50 @@
 
 $(document).ready(function(){
 	$('#publishDate').datepicker();
-	$('#bookImage').change(function(){
+	$('#bookImage').change(function() {
 		showImageThumbnail(this);
 	});
 	
 	$("#bookForm").validate({
-		rules:{
-			title:"required",
-			author:"required",
-			isbn:"required",
-			publishDate:"required",
-			<c:if test="${book==null}">
-				bookImage:"required",
-			</c:if>
-			price:"required",
-			description:"required",
+		rules: {
+			category: "required",
+			title: "required",
+			author: "required",
+			isbn: "required",
+			publishDate: "required",
 			
+			<c:if test="${book == null}">
+			bookImage: "required",
+			</c:if>
+			
+			price: "required",
+			description: "required",
 		},
 		
-		messages:{
-			category:"Please select a category for the book",
-			title :"Please enter title of the book",
-			author:"Please enter author of the book",
-			isbn:"Please enter isbn of the book",
-			publishDate:"Please enter publish Date of the book",
-			bookImage:"Please choose  image of the book",
-			price:"Please enter price of the book",
-			description:"Please enter description of the book",
+		messages: {
+			category: "Please select a category for the book",
+			title: "Please enter title of the book",
+			author: "Please enter author of the book",
+			isbn: "Please enter ISBN of the book",
+			publishDate: "Please enter publish date of the book",
+			bookImage: "Please choose an image of the book",
+			price: "Please enter price of the book",
+			description: "Please enter description of the book"
 		}
 	});
-	$("#buttonCancel").click(function(){
-		history.go(-1);
-	});
+$('#buttonCancel').click(function(){
+	history.go(-1);
 });
-function showImageThumbnail(fileInput){
+});
+function showImageThumbnail(fileInput) {
 	var file = fileInput.files[0];
 	
 	var reader = new FileReader();
-	reader.onload = function(e){
-		$('#thumbnail').arrt('src', e.target.result);
+	
+	reader.onload = function(e) {
+		$('#thumbnail').attr('src', e.target.result);
 	};
+	
 	reader.readAsDataURL(file);
 }
 </script>

@@ -10,17 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/admin/new_book")
-public class NewBookServlet extends BaseServlet {
+@WebServlet("/admin/update_book")
+public class UpdateBookServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
 
-    public NewBookServlet() {
+   
+    public UpdateBookServlet() {
     }
 
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				BookServices bookServices = new BookServices(entityManager, request, response);
-				bookServices.showBookNewForm();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	BookServices bookServices = new BookServices(entityManager, request, response);
+	bookServices.updateBook();
 	}
 
 }

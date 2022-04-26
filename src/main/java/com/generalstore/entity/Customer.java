@@ -251,7 +251,7 @@ public class Customer implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "fullname", nullable = false, length = 30)
+	@Column(name = "full_name", nullable = false, length = 30)
 	public String getFullname() {
 		return this.fullname;
 	}
@@ -287,7 +287,7 @@ public class Customer implements java.io.Serializable {
 		this.country = country;
 	}
 
-	@Column(name = "phone", nullable = false, length = 15)
+	@Column(name = "phone_number", nullable = false, length = 15)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -296,7 +296,7 @@ public class Customer implements java.io.Serializable {
 		this.phone = phone;
 	}
 
-	@Column(name = "zipcode", nullable = false, length = 24)
+	@Column(name = "zip_code", nullable = false, length = 24)
 	public String getZipcode() {
 		return this.zipcode;
 	}
