@@ -24,9 +24,9 @@
 		</h1>
 	</div>
 	<div align="center">
-		<c:if test="${book != null}">
+		<c:if test="${book != null }">
 			<form action="update_book" method="post" id="bookForm" enctype="multipart/form-data">
-				<input type="hidden" name="bookId" value="${book.bookId }">
+				<input type="hidden" name="bookId" value="${book.bookId }"/>
 		</c:if>
 		<c:if test="${book == null }">
 			<form action="create_book" method="post" id="bookForm" enctype="multipart/form-data">
@@ -39,13 +39,13 @@
 					<select name="category">
 						<c:forEach items="${listCategory}" var="category">
 							<c:if test="${category.categoryId eq book.category.categoryId}">
-								<option value="${category.categoryId}" selected>
+								<option value="${category.categoryId}" selected/>
 							</c:if>
 							<c:if test="${category.categoryId ne book.category.categoryId}">
-								<option value="${category.categoryId}">
+								<option value="${category.categoryId}"/>
 							</c:if>							
 								${category.name}
-							</option>
+							
 						</c:forEach>
 					</select>
 				</td>

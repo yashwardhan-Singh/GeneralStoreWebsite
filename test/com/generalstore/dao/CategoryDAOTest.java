@@ -1,27 +1,23 @@
 package com.generalstore.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.generalstore.entity.Category;
 
-public class CategoryDAOTest extends BaseDAOTest{
+public class CategoryDAOTest{
 
 	private static CategoryDAO categoryDao;
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		BaseDAOTest.setUpBeforeClass();
-		categoryDao = new CategoryDAO(entityManager);
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		BaseDAOTest.tearDownAfterClass();
+		categoryDao = new CategoryDAO();
 	}
 
 	@Test
@@ -67,7 +63,7 @@ public class CategoryDAOTest extends BaseDAOTest{
 	@Test
 	public void testCount() {
 		long totalCategories = categoryDao.count();
-		assertEquals(totalCategories, 2);
+		assertEquals(totalCategories, 4);
 	}
 	@Test
 	public void testFindByName() {

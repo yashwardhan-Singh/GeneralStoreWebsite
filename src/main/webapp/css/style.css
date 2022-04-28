@@ -65,6 +65,24 @@ input {
 	color: red;
 	margin: 5px;
 }
+div.center {
+	text-align: center;
+}
+
+div.book {
+	display: inline-block;
+	margin: 20px;
+	text-align: center;
+}
+
+table.normal {
+	border: 0;
+}
+
+div.book_group {
+	width: 80%; 
+	margin: 0 auto;
+}
 
 
 

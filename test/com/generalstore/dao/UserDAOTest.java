@@ -1,27 +1,28 @@
 package com.generalstore.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.generalstore.entity.Users;
 
-public class UserDAOTest extends BaseDAOTest{
+public class UserDAOTest{
 	
 	private static UserDAO userDAO;
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
-		BaseDAOTest.setUpBeforeClass();
-
-		userDAO = new UserDAO(entityManager);
+		userDAO = new UserDAO();
 	}
 
 	@Test
@@ -32,8 +33,7 @@ public class UserDAOTest extends BaseDAOTest{
 		user1.setPassword("700091");
 
 		user1 = userDAO.create(user1);
-		entityManager.close();
-		entityManagerFactory.close();
+		
 
 		assertTrue(user1.getUserId() > 0);
 	}
@@ -118,7 +118,7 @@ public class UserDAOTest extends BaseDAOTest{
 	@Test
 	public void testCount() {
 		long totalUsers = userDAO.count();
-		assertEquals(24, totalUsers);
+		assertEquals(6, totalUsers);
 	}
 	@Test
 	public void testFindByEmail() {
@@ -127,8 +127,5 @@ public class UserDAOTest extends BaseDAOTest{
 		
 		assertNotNull(user);
 	}
-	@AfterClass
-	public static void tearDownClass() throws Exception{
-		BaseDAOTest.tearDownAfterClass();
-	}
+	
 }

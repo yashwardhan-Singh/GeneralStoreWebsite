@@ -1,19 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Rural Work Supplies - Online Books/Hand-made Item Store</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Books in ${category.name} - Online Books Store</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<jsp:directive.include file = "header.jsp"/>
-	<div align="center" >
-	<br/><br/>
-		
-		<h2>New Books:</h2>
-		<div style="display: inline-table ; margin: 20px">
-		<c:forEach items="${listNewBooks}" var="book">
+	<jsp:directive.include file="header.jsp" />
+
+	<div align="center">
+		<h2>${category.name }</h2>
+	</div>
+	<div align="center">
+		<c:forEach items="${listBooks}" var="book">
 			<div class="book">
 				<div>
 					<a href="view_book?id=${book.bookId}">
@@ -33,16 +36,8 @@
 			</div>
 			
 		</c:forEach>
-		</div>
-	<div align="center">
-		<h2>Best_selling Books:</h2>
-		</div>
-		<div align="center">
-		<h2>Most-favored Books:</h2>
-		</div>
-	<br/><br/>
 	</div>
 	
-	<jsp:directive.include file = "footer.jsp"/>
+	<jsp:directive.include file="footer.jsp" />
 </body>
 </html>

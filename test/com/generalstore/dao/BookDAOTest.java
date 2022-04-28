@@ -21,18 +21,17 @@ import org.junit.Test;
 import com.generalstore.entity.Book;
 import com.generalstore.entity.Category;
 
-public class BookDAOTest extends BaseDAOTest {
+public class BookDAOTest{
 	private static BookDAO bookDao;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		BaseDAOTest.setUpBeforeClass();
-		bookDao = new BookDAO(entityManager);
+		bookDao = new BookDAO();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		BaseDAOTest.tearDownAfterClass();
+		bookDao.close();
 	}
 
 	@Test
@@ -152,11 +151,60 @@ public class BookDAOTest extends BaseDAOTest {
 		System.out.println(book.getPrice());
 		assertNotNull(book);
 	}
+	@Test
+	public void testSearchBookInTitle() {
+		String keyword = "Java";
+		List<Book> result = bookDao.search(keyword);
+		
+		for (Book aBook : result) {
+			System.out.println(aBook.getTitle());
+		}
+		
+		assertEquals(3, result.size());
+	}
+	@Test
+	public void testSearchBookInAuthor() {
+		String keyword = "Joshua";
+		List<Book> result = bookDao.search(keyword);
+		
+		for (Book aBook : result) {
+			System.out.println(aBook.getTitle());
+		}
+		
+		assertEquals(2, result.size());
+	}
+	@Test
+	public void testSearchBookInDescription() {
+		String keyword = "New coverage of generics";
+		List<Book> result = bookDao.search(keyword);
+		
+		for (Book aBook : result) {
+			System.out.println(aBook.getTitle());
+		}
+		
+		assertEquals(2, result.size());
+	}
+	@Test
+	public void testListByCategory() {
+		int categoryId = 5;
+		
+		List<Book> listBooks = bookDao.listByCategory(categoryId);
+		
+		assertTrue(listBooks.size() > 0);
+	}
 
+	@Test
+	public void testListNewBooks() {
+		List<Book> listNewBooks = bookDao.listNewBooks();
+		for (Book aBook : listNewBooks) {
+			System.out.println(aBook.getTitle() + " - " + aBook.getPublishDate());
+		}
+		assertEquals(3, listNewBooks.size());
+	}
 	@Test
 	public void testCount() {
 		long totalBooks = bookDao.count();
-		assertEquals(5, totalBooks);
+		assertEquals(3, totalBooks);
 	}
 
 	@Test

@@ -51,8 +51,8 @@
 					
 
 					<td>
-					<a href="edit_book?id=${book.bookId}">Edit</a> <a
-						href="javascript:void(0);" class="deleteLink" id="${book.bookId }">Delete</a></td>
+					<a href="edit_book?id=${book.bookId }">Edit</a> &nbsp;
+					 <a href="javascript:void(0);" class="deleteLink" id="${book.bookId }">Delete</a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -61,13 +61,11 @@
 	<script>
 		$(document).ready(function() {
 			$(".deleteLink").each(function() {
-				$(this).on("click",	function() {
-					userId = $(this).attr("id");
-					if (confirm('Are you sure you want to delete the User with Id:'
-					+ userId+ '?')) {
-					window.location = 'delete_user?id='+userId;
-					}
-
+				$(this).on("click", function() {
+					bookId = $(this).attr("id");
+					if (confirm('Are you sure you want to delete the book with ID ' +  bookId + '?')) {
+						window.location = 'delete_book?id=' + bookId;
+					}					
 				});
 			});
 		});

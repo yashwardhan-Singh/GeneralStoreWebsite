@@ -1,4 +1,4 @@
-package com.generalstore.controller.admin.category;
+package com.generalstore.controller.frontend;
 
 import java.io.IOException;
 
@@ -8,23 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.generalstorese.service.CategoryServices;
+import com.generalstorese.service.BookServices;
 
 
-@WebServlet("/admin/delete_category")
-public class DeleteCategoryServlet extends HttpServlet {
+@WebServlet("/view_category")
+public class ViewBookByCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
    
-    public DeleteCategoryServlet() {
+    public ViewBookByCategoryServlet() {
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	CategoryServices categoryServices = new CategoryServices(request, response);
-	categoryServices.deleteCategory();
+		BookServices bookServices = new BookServices(request, response);
+		bookServices.listBooksByCategory();
+//		response.getWriter().append("List books by catedogy - Served at: ").append(request.getContextPath());
 	}
-
-	
 
 }
